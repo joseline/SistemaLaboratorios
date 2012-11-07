@@ -1,0 +1,124 @@
+body
+{
+    margin: 0px 0px 0px 0px;
+    background-image: url('../img/striped_lens.png');
+    background-repeat: repeat;    
+}
+
+
+
+.header
+{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    min-height: 100px;
+    background-image: url('../img/diagonal-noise.png');
+    width:auto;
+}
+
+.pagina
+{
+    width: 1280px;
+    background-color: #fff;
+    margin: 0px 0px 0px 0px;
+    border: 0px solid #C0C0C0;
+}
+
+.imgLogo
+{
+    position:fixed;
+    top : 25px;
+    left : 300px;
+    float :right;
+}
+
+.imgLogo2
+{
+    position:fixed;
+    top: 2px;
+    left: 1000px;
+    float:right;
+}
+.main
+{
+    padding: 50px 100px;
+    min-height: 400px;
+    margin: 3px 3px 3px 3px;
+    width: 700;
+    background-image: url('../img/striped_lens.png');
+    background-repeat: repeat;
+}
+
+.mainLogin
+{
+    padding: 50px 500px;
+    min-height: 110px;
+    margin: 5px 5px 5px 5px;
+    width: auto;
+    background-image: url('../img/striped_lens.png');
+    background-repeat: repeat;
+}
+
+.Text
+{
+    font-family: Verdana;
+    font-size: large;
+    font-weight: bold;
+    color: #333333;
+}
+
+.Titulo 
+{
+    padding: 10px 10px;
+    min-height: 50px;
+    margin: 3px 3px 3px 3px;
+    width: 200;
+    background-image: url('../img/striped_lens.png');
+    background-repeat: repeat;
+    
+}
+
+.TituloText
+{
+    font-family: Verdana;
+    font-size: xx-large;
+    color: #808080;
+    font-weight: bold;
+}
+
+
+#contenedor
+{
+    width: 1280px;
+    height: 600px;
+}
+
+#cabecera
+{
+  height: 50px;
+  padding: 0px;
+}
+
+#barra-lateral
+{
+    background-image:  url('../img/grid.png');
+    background-repeat: repeat;
+    float:  left;
+    width:  150px;
+    height: 100%;
+}
+
+#contenido
+{
+    background-color:Aqua;
+    float: left;
+    width: 1130px;
+    height: 100%;
+}
+
+#pie
+{
+    background-color:Black;
+    clear:both;
+}
+

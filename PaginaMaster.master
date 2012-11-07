@@ -1,0 +1,64 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="PaginaMaster.master.cs" Inherits="PaginaMaster" %>
+
+<%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>
+    </title>
+    <link href="css/styles.css" rel="Stylesheet" type="text/css" media="all"/>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <ext:ResourceManager ID="ResourceManager1" runat="server" Locale="en-US"></ext:ResourceManager>
+    <form id="formMaster" runat="server">
+     <div class = "pagina">
+     <%--<asp:Image runat="server" ImageUrl="~/img/forma_colo23r.png" ImageAlign="Right" Height="130px" Width="130px" CssClass= "imgLogo2" />--%>
+     <div id="cssmenu">
+        <ul>
+          <li class='has-sub '><a href='#'><span>Alumnos</span></a>
+            <ul>
+                <li><asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Paginas/Alumnos/Alumnos.aspx">Alumno</asp:HyperLink></li>
+            </ul>
+          </li>
+          <li class='has-sub '><a href='#'><span>Equipos</span></a>
+            <ul>
+            <li>
+                <asp:HyperLink ID="HyperLink2"  runat="server" NavigateUrl="~/Paginas/Articulos/Articulos.aspx">Equipo</asp:HyperLink></li>
+            </ul>
+          </li>
+          <li class='has-sub '><a href='#'><span>Prestamos</span></a>
+            <ul>
+                <li>
+                    <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Paginas/Prestamos/Prestamos.aspx">Prestamo
+                    </asp:HyperLink></li>
+            </ul>
+          </li>
+          <li class='has-sub '><a href='#'><span>Mantenimientos</span></a>
+            <ul>
+                <li><asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/Paginas/Mantenimientos/Mantenimientos.aspx">Mantenimiento</asp:HyperLink></li>
+            </ul>
+          </li>
+          <li class='has-sub '><a href='#'><span>Calibraciones</span></a>
+            <ul>
+                <li>
+                    <asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="~/Paginas/Calibraciones/Calibraciones.aspx">Calibracion</asp:HyperLink></li>
+            </ul>
+          </li>
+        </ul>
+     </div>
+
+     <div class = "main">
+          <asp:ContentPlaceHolder id="ContentPlaceHolderBody" runat="server">
+         </asp:ContentPlaceHolder>
+    </div>
+    
+    </div>
+   </form>
+    
+</body>
+</html>
