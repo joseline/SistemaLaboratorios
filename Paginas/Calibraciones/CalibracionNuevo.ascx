@@ -102,6 +102,10 @@ runat="server">
                                     FieldLabel="     Serie" 
                                     Width="300" Flex="1" 
                                     Cls="LabelEstilo" 
+                                    TypeAhead="true"
+                                    QueryMode="Local"
+                                    TriggerAction="All" 
+                                    ValueNotFoundText="..." 
                                     ValueField="ARTICULO_ID" 
                                     DisplayField="ARTICULO_SERIE" 
                                     EmptyText="Seleciona una marca">
@@ -330,6 +334,9 @@ runat="server">
               </Items>
                     <Buttons>
                         <ext:Button runat="server" ID="btnNueno" Text="Nuevo" Icon="Add">
+                            <Listeners>
+                                <Click Handler="this.up('form').getForm().reset();"/>
+                            </Listeners>
                         </ext:Button>
                         <ext:Button runat="server" ID="btnGuardar" Text="Guardar" Icon="DiskBlack">
                         <DirectEvents>

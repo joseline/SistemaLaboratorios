@@ -31,6 +31,7 @@ public partial class Default2 : System.Web.UI.Page
         this.stPrestamoArticulo.DataBind();
         
         this.PrestamoNuevo1.GridStore = this.stPrestamos;
+        this.PrestamoDetalle1.GridStore = this.stPrestamos;
     }
     protected void mostrarVentanaPrestamoDetalle(object sender, DirectEventArgs e) 
     {

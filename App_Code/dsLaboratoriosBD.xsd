@@ -972,7 +972,7 @@ VALUES        (@PRESTAMO_ALUMNO_ID,@PRESTAMO_ARTICULO_ID,@PRESTAMO_FECHASALIDA,@
                   </DbCommand>
                 </InsertCommand>
               </DbSource>
-              <DbSource ConnectionRef="LaboratoriosBDConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdatePrestamo" Modifier="Public" Name="UpdatePrestamo" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="UpdatePrestamo">
+              <DbSource ConnectionRef="LaboratoriosBDConnectionString (Web.config)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdatePrestamo" Modifier="Public" Name="UpdatePrestamo" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="UpdatePrestamo">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE [PRESTAMOS] SET [PRESTAMO_ALUMNO_ID] = @PRESTAMO_ALUMNO_ID, [PRESTAMO_ARTICULO_ID] = @PRESTAMO_ARTICULO_ID, [PRESTAMO_FECHASALIDA] = @PRESTAMO_FECHASALIDA, [PRESTAMO_FECHAENTRADA] = @PRESTAMO_FECHAENTRADA, [PRESTAMO_FECHADEENTREGA] = @PRESTAMO_FECHADEENTREGA, [PRESTAMO_USUARIO_ID_PRESTADOPOR] = @PRESTAMO_USUARIO_ID_PRESTADOPOR, [PRESTAMO_USUARIO_ID_RECIBIDOPOR] = @PRESTAMO_USUARIO_ID_RECIBIDOPOR, [PRESTAMO_TIPO] = @PRESTAMO_TIPO, [PRESTAMO_HORAINICIO] = @PRESTAMO_HORAINICIO, [PRESTAMO_HORAFIN] = @PRESTAMO_HORAFIN, [PRESTAMO_OBSERVACIONES] = @PRESTAMO_OBSERVACIONES, [PRESTAMO_MULTA] = @PRESTAMO_MULTA, [PRESTAMO_MULTAPAGADA] = @PRESTAMO_MULTAPAGADA WHERE (([PRESTAMO_ID] = @Original_PRESTAMO_ID))</CommandText>
@@ -995,7 +995,7 @@ VALUES        (@PRESTAMO_ALUMNO_ID,@PRESTAMO_ARTICULO_ID,@PRESTAMO_FECHASALIDA,@
                   </DbCommand>
                 </UpdateCommand>
               </DbSource>
-              <DbSource ConnectionRef="LaboratoriosBDConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="ValidarPrestamo" Modifier="Public" Name="ValidarPrestamo" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="ValidarPrestamo">
+              <DbSource ConnectionRef="LaboratoriosBDConnectionString (Web.config)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="ValidarPrestamo" Modifier="Public" Name="ValidarPrestamo" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="ValidarPrestamo">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        COUNT(*) AS Contador
@@ -1037,6 +1037,176 @@ WHERE        (PRESTAMOS.PRESTAMO_ALUMNO_ID = @ALUMNO_ID)</CommandText>
               <Mapping SourceColumn="ARTICULO_COLOR" DataSetColumn="ARTICULO_COLOR" />
               <Mapping SourceColumn="ARTICULO_LABORATORIO_ID" DataSetColumn="ARTICULO_LABORATORIO_ID" />
               <Mapping SourceColumn="ARTICULO_MULTA" DataSetColumn="ARTICULO_MULTA" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="EquipoPrestadoReporteTableAdapter" GeneratorDataComponentClassName="EquipoPrestadoReporteTableAdapter" Name="EquipoPrestadoReporte" UserDataComponentName="EquipoPrestadoReporteTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="LaboratoriosBDConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillEquipoPrestado" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetDataEquipoPrestado" GeneratorSourceName="FillEquipoPrestado" GetMethodModifier="Public" GetMethodName="GetDataEquipoPrestado" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetDataEquipoPrestado" UserSourceName="FillEquipoPrestado">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        ARTICULOS.ARTICULO_ID, ARTICULOS.ARTICULO_SERIE, ARTICULOS.ARTICULO_NOMBRE, ARTICULOS.ARTICULO_DESCRIPCION, 
+                         ARTICULOS.ARTICULO_MARCA_ID, ARTICULOS.ARTICULO_MODELO, ARTICULOS.ARTICULO_COLOR, ARTICULOS.ARTICULO_LABORATORIO_ID, 
+                         ARTICULOS.ARTICULO_MULTA, PRESTAMOS.PRESTAMO_ID
+FROM            ARTICULOS INNER JOIN
+                         PRESTAMOS ON ARTICULOS.ARTICULO_ID = PRESTAMOS.PRESTAMO_ARTICULO_ID
+WHERE        (GETDATE() &lt;= PRESTAMOS.PRESTAMO_FECHADEENTREGA) OR
+                         (PRESTAMOS.PRESTAMO_FECHADEENTREGA IS NULL)</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ARTICULO_ID" DataSetColumn="ARTICULO_ID" />
+              <Mapping SourceColumn="ARTICULO_SERIE" DataSetColumn="ARTICULO_SERIE" />
+              <Mapping SourceColumn="ARTICULO_NOMBRE" DataSetColumn="ARTICULO_NOMBRE" />
+              <Mapping SourceColumn="ARTICULO_DESCRIPCION" DataSetColumn="ARTICULO_DESCRIPCION" />
+              <Mapping SourceColumn="ARTICULO_MARCA_ID" DataSetColumn="ARTICULO_MARCA_ID" />
+              <Mapping SourceColumn="ARTICULO_MODELO" DataSetColumn="ARTICULO_MODELO" />
+              <Mapping SourceColumn="ARTICULO_COLOR" DataSetColumn="ARTICULO_COLOR" />
+              <Mapping SourceColumn="ARTICULO_LABORATORIO_ID" DataSetColumn="ARTICULO_LABORATORIO_ID" />
+              <Mapping SourceColumn="ARTICULO_MULTA" DataSetColumn="ARTICULO_MULTA" />
+              <Mapping SourceColumn="PRESTAMO_ID" DataSetColumn="PRESTAMO_ID" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="EquipoPrestadoDetalleReporteTableAdapter" GeneratorDataComponentClassName="EquipoPrestadoDetalleReporteTableAdapter" Name="EquipoPrestadoDetalleReporte" UserDataComponentName="EquipoPrestadoDetalleReporteTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="LaboratoriosBDConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByPrestamoId" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetDataByPrestamoId" GeneratorSourceName="FillByPrestamoId" GetMethodModifier="Public" GetMethodName="GetDataByPrestamoId" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetDataByPrestamoId" UserSourceName="FillByPrestamoId">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        ALUMNOS.ALUMNO_ID, ALUMNOS.ALUMNO_CUENTA, ALUMNOS.ALUMNO_NOMBRE, ALUMNOS.ALUMNO_TELEFONO, ALUMNOS.ALUMNO_CORREO, 
+                         ALUMNOS.ALUMNO_CARRERA_ID, PRESTAMOS.PRESTAMO_ID, PRESTAMOS.PRESTAMO_ALUMNO_ID, PRESTAMOS.PRESTAMO_ARTICULO_ID, 
+                         PRESTAMOS.PRESTAMO_FECHASALIDA, PRESTAMOS.PRESTAMO_FECHAENTRADA, PRESTAMOS.PRESTAMO_FECHADEENTREGA, 
+                         PRESTAMOS.PRESTAMO_USUARIO_ID_PRESTADOPOR, PRESTAMOS.PRESTAMO_USUARIO_ID_RECIBIDOPOR, PRESTAMOS.PRESTAMO_TIPO, 
+                         PRESTAMOS.PRESTAMO_HORAINICIO, PRESTAMOS.PRESTAMO_HORAFIN, PRESTAMOS.PRESTAMO_OBSERVACIONES, PRESTAMOS.PRESTAMO_MULTA, 
+                         PRESTAMOS.PRESTAMO_MULTAPAGADA
+FROM            ALUMNOS INNER JOIN
+                         PRESTAMOS ON ALUMNOS.ALUMNO_ID = PRESTAMOS.PRESTAMO_ALUMNO_ID
+WHERE        (PRESTAMOS.PRESTAMO_ID = @PRESTAMO_ID)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="PRESTAMO_ID" ColumnName="PRESTAMO_ID" DataSourceName="LaboratoriosBD.dbo.PRESTAMOS" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@PRESTAMO_ID" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="PRESTAMO_ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ALUMNO_ID" DataSetColumn="ALUMNO_ID" />
+              <Mapping SourceColumn="ALUMNO_CUENTA" DataSetColumn="ALUMNO_CUENTA" />
+              <Mapping SourceColumn="ALUMNO_NOMBRE" DataSetColumn="ALUMNO_NOMBRE" />
+              <Mapping SourceColumn="ALUMNO_TELEFONO" DataSetColumn="ALUMNO_TELEFONO" />
+              <Mapping SourceColumn="ALUMNO_CORREO" DataSetColumn="ALUMNO_CORREO" />
+              <Mapping SourceColumn="ALUMNO_CARRERA_ID" DataSetColumn="ALUMNO_CARRERA_ID" />
+              <Mapping SourceColumn="PRESTAMO_ID" DataSetColumn="PRESTAMO_ID" />
+              <Mapping SourceColumn="PRESTAMO_ALUMNO_ID" DataSetColumn="PRESTAMO_ALUMNO_ID" />
+              <Mapping SourceColumn="PRESTAMO_ARTICULO_ID" DataSetColumn="PRESTAMO_ARTICULO_ID" />
+              <Mapping SourceColumn="PRESTAMO_FECHASALIDA" DataSetColumn="PRESTAMO_FECHASALIDA" />
+              <Mapping SourceColumn="PRESTAMO_FECHAENTRADA" DataSetColumn="PRESTAMO_FECHAENTRADA" />
+              <Mapping SourceColumn="PRESTAMO_FECHADEENTREGA" DataSetColumn="PRESTAMO_FECHADEENTREGA" />
+              <Mapping SourceColumn="PRESTAMO_USUARIO_ID_PRESTADOPOR" DataSetColumn="PRESTAMO_USUARIO_ID_PRESTADOPOR" />
+              <Mapping SourceColumn="PRESTAMO_USUARIO_ID_RECIBIDOPOR" DataSetColumn="PRESTAMO_USUARIO_ID_RECIBIDOPOR" />
+              <Mapping SourceColumn="PRESTAMO_TIPO" DataSetColumn="PRESTAMO_TIPO" />
+              <Mapping SourceColumn="PRESTAMO_HORAINICIO" DataSetColumn="PRESTAMO_HORAINICIO" />
+              <Mapping SourceColumn="PRESTAMO_HORAFIN" DataSetColumn="PRESTAMO_HORAFIN" />
+              <Mapping SourceColumn="PRESTAMO_OBSERVACIONES" DataSetColumn="PRESTAMO_OBSERVACIONES" />
+              <Mapping SourceColumn="PRESTAMO_MULTA" DataSetColumn="PRESTAMO_MULTA" />
+              <Mapping SourceColumn="PRESTAMO_MULTAPAGADA" DataSetColumn="PRESTAMO_MULTAPAGADA" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="REVISIONXARTICULOTableAdapter" GeneratorDataComponentClassName="REVISIONXARTICULOTableAdapter" Name="REVISIONXARTICULO" UserDataComponentName="REVISIONXARTICULOTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="LaboratoriosBDConnectionString (Web.config)" DbObjectName="LaboratoriosBD.dbo.REVISIONXARTICULO" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[REVISIONXARTICULO] WHERE (([REVISION_ID] = @Original_REVISION_ID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_REVISION_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="REVISION_ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[REVISIONXARTICULO] ([REVISION_ID], [REVISION_ARTICULO_ID], [REVISION_ESTADOARTICULO_ID], [REVISION_FECHA]) VALUES (@REVISION_ID, @REVISION_ARTICULO_ID, @REVISION_ESTADOARTICULO_ID, @REVISION_FECHA)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@REVISION_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="REVISION_ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@REVISION_ARTICULO_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="REVISION_ARTICULO_ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@REVISION_ESTADOARTICULO_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="REVISION_ESTADOARTICULO_ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@REVISION_FECHA" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="REVISION_FECHA" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT REVISION_ID, REVISION_ARTICULO_ID, REVISION_ESTADOARTICULO_ID, REVISION_FECHA FROM dbo.REVISIONXARTICULO</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[REVISIONXARTICULO] SET [REVISION_ID] = @REVISION_ID, [REVISION_ARTICULO_ID] = @REVISION_ARTICULO_ID, [REVISION_ESTADOARTICULO_ID] = @REVISION_ESTADOARTICULO_ID, [REVISION_FECHA] = @REVISION_FECHA WHERE (([REVISION_ID] = @Original_REVISION_ID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@REVISION_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="REVISION_ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@REVISION_ARTICULO_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="REVISION_ARTICULO_ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@REVISION_ESTADOARTICULO_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="REVISION_ESTADOARTICULO_ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@REVISION_FECHA" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="REVISION_FECHA" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_REVISION_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="REVISION_ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="REVISION_ID" DataSetColumn="REVISION_ID" />
+              <Mapping SourceColumn="REVISION_ARTICULO_ID" DataSetColumn="REVISION_ARTICULO_ID" />
+              <Mapping SourceColumn="REVISION_ESTADOARTICULO_ID" DataSetColumn="REVISION_ESTADOARTICULO_ID" />
+              <Mapping SourceColumn="REVISION_FECHA" DataSetColumn="REVISION_FECHA" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="REVISIONESTADOTableAdapter" GeneratorDataComponentClassName="REVISIONESTADOTableAdapter" Name="REVISIONESTADO" UserDataComponentName="REVISIONESTADOTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="LaboratoriosBDConnectionString (Web.config)" DbObjectName="LaboratoriosBD.dbo.REVISIONESTADO" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[REVISIONESTADO] WHERE (([REVISIONESTADO_ID] = @Original_REVISIONESTADO_ID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_REVISIONESTADO_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="REVISIONESTADO_ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[REVISIONESTADO] ([REVISIONESTADO_ID], [REVISIONESTADOID_DESCRIPCION]) VALUES (@REVISIONESTADO_ID, @REVISIONESTADOID_DESCRIPCION)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@REVISIONESTADO_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="REVISIONESTADO_ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@REVISIONESTADOID_DESCRIPCION" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="REVISIONESTADOID_DESCRIPCION" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT REVISIONESTADO_ID, REVISIONESTADOID_DESCRIPCION FROM dbo.REVISIONESTADO</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[REVISIONESTADO] SET [REVISIONESTADO_ID] = @REVISIONESTADO_ID, [REVISIONESTADOID_DESCRIPCION] = @REVISIONESTADOID_DESCRIPCION WHERE (([REVISIONESTADO_ID] = @Original_REVISIONESTADO_ID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@REVISIONESTADO_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="REVISIONESTADO_ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@REVISIONESTADOID_DESCRIPCION" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="REVISIONESTADOID_DESCRIPCION" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_REVISIONESTADO_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="REVISIONESTADO_ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="REVISIONESTADO_ID" DataSetColumn="REVISIONESTADO_ID" />
+              <Mapping SourceColumn="REVISIONESTADOID_DESCRIPCION" DataSetColumn="REVISIONESTADOID_DESCRIPCION" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -1374,6 +1544,126 @@ WHERE        (PRESTAMOS.PRESTAMO_ALUMNO_ID = @ALUMNO_ID)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="EquipoPrestadoReporte" msprop:Generator_TableClassName="EquipoPrestadoReporteDataTable" msprop:Generator_TableVarName="tableEquipoPrestadoReporte" msprop:Generator_TablePropName="EquipoPrestadoReporte" msprop:Generator_RowDeletingName="EquipoPrestadoReporteRowDeleting" msprop:Generator_UserTableName="EquipoPrestadoReporte" msprop:Generator_RowChangingName="EquipoPrestadoReporteRowChanging" msprop:Generator_RowEvHandlerName="EquipoPrestadoReporteRowChangeEventHandler" msprop:Generator_RowDeletedName="EquipoPrestadoReporteRowDeleted" msprop:Generator_RowEvArgName="EquipoPrestadoReporteRowChangeEvent" msprop:Generator_RowChangedName="EquipoPrestadoReporteRowChanged" msprop:Generator_RowClassName="EquipoPrestadoReporteRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ARTICULO_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnARTICULO_ID" msprop:Generator_ColumnPropNameInRow="ARTICULO_ID" msprop:Generator_ColumnPropNameInTable="ARTICULO_IDColumn" msprop:Generator_UserColumnName="ARTICULO_ID" type="xs:int" />
+              <xs:element name="ARTICULO_SERIE" msprop:Generator_ColumnVarNameInTable="columnARTICULO_SERIE" msprop:Generator_ColumnPropNameInRow="ARTICULO_SERIE" msprop:Generator_ColumnPropNameInTable="ARTICULO_SERIEColumn" msprop:Generator_UserColumnName="ARTICULO_SERIE">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ARTICULO_NOMBRE" msprop:Generator_ColumnVarNameInTable="columnARTICULO_NOMBRE" msprop:Generator_ColumnPropNameInRow="ARTICULO_NOMBRE" msprop:Generator_ColumnPropNameInTable="ARTICULO_NOMBREColumn" msprop:Generator_UserColumnName="ARTICULO_NOMBRE">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ARTICULO_DESCRIPCION" msprop:Generator_ColumnVarNameInTable="columnARTICULO_DESCRIPCION" msprop:Generator_ColumnPropNameInRow="ARTICULO_DESCRIPCION" msprop:Generator_ColumnPropNameInTable="ARTICULO_DESCRIPCIONColumn" msprop:Generator_UserColumnName="ARTICULO_DESCRIPCION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ARTICULO_MARCA_ID" msprop:Generator_ColumnVarNameInTable="columnARTICULO_MARCA_ID" msprop:Generator_ColumnPropNameInRow="ARTICULO_MARCA_ID" msprop:Generator_ColumnPropNameInTable="ARTICULO_MARCA_IDColumn" msprop:Generator_UserColumnName="ARTICULO_MARCA_ID" type="xs:int" />
+              <xs:element name="ARTICULO_MODELO" msprop:Generator_ColumnVarNameInTable="columnARTICULO_MODELO" msprop:Generator_ColumnPropNameInRow="ARTICULO_MODELO" msprop:Generator_ColumnPropNameInTable="ARTICULO_MODELOColumn" msprop:Generator_UserColumnName="ARTICULO_MODELO">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ARTICULO_COLOR" msprop:Generator_ColumnVarNameInTable="columnARTICULO_COLOR" msprop:Generator_ColumnPropNameInRow="ARTICULO_COLOR" msprop:Generator_ColumnPropNameInTable="ARTICULO_COLORColumn" msprop:Generator_UserColumnName="ARTICULO_COLOR">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ARTICULO_LABORATORIO_ID" msprop:Generator_ColumnVarNameInTable="columnARTICULO_LABORATORIO_ID" msprop:Generator_ColumnPropNameInRow="ARTICULO_LABORATORIO_ID" msprop:Generator_ColumnPropNameInTable="ARTICULO_LABORATORIO_IDColumn" msprop:Generator_UserColumnName="ARTICULO_LABORATORIO_ID" type="xs:int" />
+              <xs:element name="ARTICULO_MULTA" msprop:Generator_ColumnVarNameInTable="columnARTICULO_MULTA" msprop:Generator_ColumnPropNameInRow="ARTICULO_MULTA" msprop:Generator_ColumnPropNameInTable="ARTICULO_MULTAColumn" msprop:Generator_UserColumnName="ARTICULO_MULTA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PRESTAMO_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_ID" msprop:Generator_ColumnPropNameInRow="PRESTAMO_ID" msprop:Generator_ColumnPropNameInTable="PRESTAMO_IDColumn" msprop:Generator_UserColumnName="PRESTAMO_ID" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="EquipoPrestadoDetalleReporte" msprop:Generator_TableClassName="EquipoPrestadoDetalleReporteDataTable" msprop:Generator_TableVarName="tableEquipoPrestadoDetalleReporte" msprop:Generator_TablePropName="EquipoPrestadoDetalleReporte" msprop:Generator_RowDeletingName="EquipoPrestadoDetalleReporteRowDeleting" msprop:Generator_UserTableName="EquipoPrestadoDetalleReporte" msprop:Generator_RowChangingName="EquipoPrestadoDetalleReporteRowChanging" msprop:Generator_RowEvHandlerName="EquipoPrestadoDetalleReporteRowChangeEventHandler" msprop:Generator_RowDeletedName="EquipoPrestadoDetalleReporteRowDeleted" msprop:Generator_RowEvArgName="EquipoPrestadoDetalleReporteRowChangeEvent" msprop:Generator_RowChangedName="EquipoPrestadoDetalleReporteRowChanged" msprop:Generator_RowClassName="EquipoPrestadoDetalleReporteRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ALUMNO_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnALUMNO_ID" msprop:Generator_ColumnPropNameInRow="ALUMNO_ID" msprop:Generator_ColumnPropNameInTable="ALUMNO_IDColumn" msprop:Generator_UserColumnName="ALUMNO_ID" type="xs:int" />
+              <xs:element name="ALUMNO_CUENTA" msprop:Generator_ColumnVarNameInTable="columnALUMNO_CUENTA" msprop:Generator_ColumnPropNameInRow="ALUMNO_CUENTA" msprop:Generator_ColumnPropNameInTable="ALUMNO_CUENTAColumn" msprop:Generator_UserColumnName="ALUMNO_CUENTA" type="xs:int" />
+              <xs:element name="ALUMNO_NOMBRE" msprop:Generator_ColumnVarNameInTable="columnALUMNO_NOMBRE" msprop:Generator_ColumnPropNameInRow="ALUMNO_NOMBRE" msprop:Generator_ColumnPropNameInTable="ALUMNO_NOMBREColumn" msprop:Generator_UserColumnName="ALUMNO_NOMBRE">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ALUMNO_TELEFONO" msprop:Generator_ColumnVarNameInTable="columnALUMNO_TELEFONO" msprop:Generator_ColumnPropNameInRow="ALUMNO_TELEFONO" msprop:Generator_ColumnPropNameInTable="ALUMNO_TELEFONOColumn" msprop:Generator_UserColumnName="ALUMNO_TELEFONO">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ALUMNO_CORREO" msprop:Generator_ColumnVarNameInTable="columnALUMNO_CORREO" msprop:Generator_ColumnPropNameInRow="ALUMNO_CORREO" msprop:Generator_ColumnPropNameInTable="ALUMNO_CORREOColumn" msprop:Generator_UserColumnName="ALUMNO_CORREO">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ALUMNO_CARRERA_ID" msprop:Generator_ColumnVarNameInTable="columnALUMNO_CARRERA_ID" msprop:Generator_ColumnPropNameInRow="ALUMNO_CARRERA_ID" msprop:Generator_ColumnPropNameInTable="ALUMNO_CARRERA_IDColumn" msprop:Generator_UserColumnName="ALUMNO_CARRERA_ID" type="xs:int" />
+              <xs:element name="PRESTAMO_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_ID" msprop:Generator_ColumnPropNameInRow="PRESTAMO_ID" msprop:Generator_ColumnPropNameInTable="PRESTAMO_IDColumn" msprop:Generator_UserColumnName="PRESTAMO_ID" type="xs:int" />
+              <xs:element name="PRESTAMO_ALUMNO_ID" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_ALUMNO_ID" msprop:Generator_ColumnPropNameInRow="PRESTAMO_ALUMNO_ID" msprop:Generator_ColumnPropNameInTable="PRESTAMO_ALUMNO_IDColumn" msprop:Generator_UserColumnName="PRESTAMO_ALUMNO_ID" type="xs:int" />
+              <xs:element name="PRESTAMO_ARTICULO_ID" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_ARTICULO_ID" msprop:Generator_ColumnPropNameInRow="PRESTAMO_ARTICULO_ID" msprop:Generator_ColumnPropNameInTable="PRESTAMO_ARTICULO_IDColumn" msprop:Generator_UserColumnName="PRESTAMO_ARTICULO_ID" type="xs:int" />
+              <xs:element name="PRESTAMO_FECHASALIDA" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_FECHASALIDA" msprop:Generator_ColumnPropNameInRow="PRESTAMO_FECHASALIDA" msprop:Generator_ColumnPropNameInTable="PRESTAMO_FECHASALIDAColumn" msprop:Generator_UserColumnName="PRESTAMO_FECHASALIDA" type="xs:dateTime" />
+              <xs:element name="PRESTAMO_FECHAENTRADA" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_FECHAENTRADA" msprop:Generator_ColumnPropNameInRow="PRESTAMO_FECHAENTRADA" msprop:Generator_ColumnPropNameInTable="PRESTAMO_FECHAENTRADAColumn" msprop:Generator_UserColumnName="PRESTAMO_FECHAENTRADA" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PRESTAMO_FECHADEENTREGA" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_FECHADEENTREGA" msprop:Generator_ColumnPropNameInRow="PRESTAMO_FECHADEENTREGA" msprop:Generator_ColumnPropNameInTable="PRESTAMO_FECHADEENTREGAColumn" msprop:Generator_UserColumnName="PRESTAMO_FECHADEENTREGA" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PRESTAMO_USUARIO_ID_PRESTADOPOR" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_USUARIO_ID_PRESTADOPOR" msprop:Generator_ColumnPropNameInRow="PRESTAMO_USUARIO_ID_PRESTADOPOR" msprop:Generator_ColumnPropNameInTable="PRESTAMO_USUARIO_ID_PRESTADOPORColumn" msprop:Generator_UserColumnName="PRESTAMO_USUARIO_ID_PRESTADOPOR" type="xs:int" />
+              <xs:element name="PRESTAMO_USUARIO_ID_RECIBIDOPOR" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_USUARIO_ID_RECIBIDOPOR" msprop:Generator_ColumnPropNameInRow="PRESTAMO_USUARIO_ID_RECIBIDOPOR" msprop:Generator_ColumnPropNameInTable="PRESTAMO_USUARIO_ID_RECIBIDOPORColumn" msprop:Generator_UserColumnName="PRESTAMO_USUARIO_ID_RECIBIDOPOR" type="xs:int" minOccurs="0" />
+              <xs:element name="PRESTAMO_TIPO" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_TIPO" msprop:Generator_ColumnPropNameInRow="PRESTAMO_TIPO" msprop:Generator_ColumnPropNameInTable="PRESTAMO_TIPOColumn" msprop:Generator_UserColumnName="PRESTAMO_TIPO" type="xs:int" />
+              <xs:element name="PRESTAMO_HORAINICIO" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_HORAINICIO" msprop:Generator_ColumnPropNameInRow="PRESTAMO_HORAINICIO" msprop:Generator_ColumnPropNameInTable="PRESTAMO_HORAINICIOColumn" msprop:Generator_UserColumnName="PRESTAMO_HORAINICIO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PRESTAMO_HORAFIN" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_HORAFIN" msprop:Generator_ColumnPropNameInRow="PRESTAMO_HORAFIN" msprop:Generator_ColumnPropNameInTable="PRESTAMO_HORAFINColumn" msprop:Generator_UserColumnName="PRESTAMO_HORAFIN" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PRESTAMO_OBSERVACIONES" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_OBSERVACIONES" msprop:Generator_ColumnPropNameInRow="PRESTAMO_OBSERVACIONES" msprop:Generator_ColumnPropNameInTable="PRESTAMO_OBSERVACIONESColumn" msprop:Generator_UserColumnName="PRESTAMO_OBSERVACIONES">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="90" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRESTAMO_MULTA" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_MULTA" msprop:Generator_ColumnPropNameInRow="PRESTAMO_MULTA" msprop:Generator_ColumnPropNameInTable="PRESTAMO_MULTAColumn" msprop:Generator_UserColumnName="PRESTAMO_MULTA" type="xs:decimal" />
+              <xs:element name="PRESTAMO_MULTAPAGADA" msprop:Generator_ColumnVarNameInTable="columnPRESTAMO_MULTAPAGADA" msprop:Generator_ColumnPropNameInRow="PRESTAMO_MULTAPAGADA" msprop:Generator_ColumnPropNameInTable="PRESTAMO_MULTAPAGADAColumn" msprop:Generator_UserColumnName="PRESTAMO_MULTAPAGADA" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="REVISIONXARTICULO" msprop:Generator_TableClassName="REVISIONXARTICULODataTable" msprop:Generator_TableVarName="tableREVISIONXARTICULO" msprop:Generator_TablePropName="REVISIONXARTICULO" msprop:Generator_RowDeletingName="REVISIONXARTICULORowDeleting" msprop:Generator_UserTableName="REVISIONXARTICULO" msprop:Generator_RowChangingName="REVISIONXARTICULORowChanging" msprop:Generator_RowEvHandlerName="REVISIONXARTICULORowChangeEventHandler" msprop:Generator_RowDeletedName="REVISIONXARTICULORowDeleted" msprop:Generator_RowEvArgName="REVISIONXARTICULORowChangeEvent" msprop:Generator_RowChangedName="REVISIONXARTICULORowChanged" msprop:Generator_RowClassName="REVISIONXARTICULORow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="REVISION_ID" msprop:Generator_ColumnVarNameInTable="columnREVISION_ID" msprop:Generator_ColumnPropNameInRow="REVISION_ID" msprop:Generator_ColumnPropNameInTable="REVISION_IDColumn" msprop:Generator_UserColumnName="REVISION_ID" type="xs:int" />
+              <xs:element name="REVISION_ARTICULO_ID" msprop:Generator_ColumnVarNameInTable="columnREVISION_ARTICULO_ID" msprop:Generator_ColumnPropNameInRow="REVISION_ARTICULO_ID" msprop:Generator_ColumnPropNameInTable="REVISION_ARTICULO_IDColumn" msprop:Generator_UserColumnName="REVISION_ARTICULO_ID" type="xs:int" />
+              <xs:element name="REVISION_ESTADOARTICULO_ID" msprop:Generator_ColumnVarNameInTable="columnREVISION_ESTADOARTICULO_ID" msprop:Generator_ColumnPropNameInRow="REVISION_ESTADOARTICULO_ID" msprop:Generator_ColumnPropNameInTable="REVISION_ESTADOARTICULO_IDColumn" msprop:Generator_UserColumnName="REVISION_ESTADOARTICULO_ID" type="xs:int" />
+              <xs:element name="REVISION_FECHA" msprop:Generator_ColumnVarNameInTable="columnREVISION_FECHA" msprop:Generator_ColumnPropNameInRow="REVISION_FECHA" msprop:Generator_ColumnPropNameInTable="REVISION_FECHAColumn" msprop:Generator_UserColumnName="REVISION_FECHA" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="REVISIONESTADO" msprop:Generator_TableClassName="REVISIONESTADODataTable" msprop:Generator_TableVarName="tableREVISIONESTADO" msprop:Generator_TablePropName="REVISIONESTADO" msprop:Generator_RowDeletingName="REVISIONESTADORowDeleting" msprop:Generator_UserTableName="REVISIONESTADO" msprop:Generator_RowChangingName="REVISIONESTADORowChanging" msprop:Generator_RowEvHandlerName="REVISIONESTADORowChangeEventHandler" msprop:Generator_RowDeletedName="REVISIONESTADORowDeleted" msprop:Generator_RowEvArgName="REVISIONESTADORowChangeEvent" msprop:Generator_RowChangedName="REVISIONESTADORowChanged" msprop:Generator_RowClassName="REVISIONESTADORow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="REVISIONESTADO_ID" msprop:Generator_ColumnVarNameInTable="columnREVISIONESTADO_ID" msprop:Generator_ColumnPropNameInRow="REVISIONESTADO_ID" msprop:Generator_ColumnPropNameInTable="REVISIONESTADO_IDColumn" msprop:Generator_UserColumnName="REVISIONESTADO_ID" type="xs:int" />
+              <xs:element name="REVISIONESTADOID_DESCRIPCION" msprop:Generator_ColumnVarNameInTable="columnREVISIONESTADOID_DESCRIPCION" msprop:Generator_ColumnPropNameInRow="REVISIONESTADOID_DESCRIPCION" msprop:Generator_ColumnPropNameInTable="REVISIONESTADOID_DESCRIPCIONColumn" msprop:Generator_UserColumnName="REVISIONESTADOID_DESCRIPCION">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -1432,6 +1722,23 @@ WHERE        (PRESTAMOS.PRESTAMO_ALUMNO_ID = @ALUMNO_ID)</CommandText>
       <xs:selector xpath=".//mstns:EquipoPrestado" />
       <xs:field xpath="mstns:ARTICULO_ID" />
     </xs:unique>
+    <xs:unique name="EquipoPrestadoReporte_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:EquipoPrestadoReporte" />
+      <xs:field xpath="mstns:ARTICULO_ID" />
+    </xs:unique>
+    <xs:unique name="EquipoPrestadoDetalleReporte_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:EquipoPrestadoDetalleReporte" />
+      <xs:field xpath="mstns:ALUMNO_ID" />
+      <xs:field xpath="mstns:PRESTAMO_ID" />
+    </xs:unique>
+    <xs:unique name="REVISIONXARTICULO_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:REVISIONXARTICULO" />
+      <xs:field xpath="mstns:REVISION_ID" />
+    </xs:unique>
+    <xs:unique name="REVISIONESTADO_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:REVISIONESTADO" />
+      <xs:field xpath="mstns:REVISIONESTADO_ID" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1456,6 +1763,14 @@ WHERE        (PRESTAMOS.PRESTAMO_ALUMNO_ID = @ALUMNO_ID)</CommandText>
       <msdata:Relationship name="FK_CALIBRACIONES_ARTICULOS1" msdata:parent="EquipoPrestado" msdata:child="CALIBRACIONES" msdata:parentkey="ARTICULO_ID" msdata:childkey="CALIBRACION_ARTICULO_ID" msprop:Generator_UserChildTable="CALIBRACIONES" msprop:Generator_ChildPropName="GetCALIBRACIONESRows" msprop:Generator_UserParentTable="EquipoPrestado" msprop:Generator_UserRelationName="FK_CALIBRACIONES_ARTICULOS1" msprop:Generator_RelationVarName="relationFK_CALIBRACIONES_ARTICULOS1" msprop:Generator_ParentPropName="EquipoPrestadoRow" />
       <msdata:Relationship name="FK_ARTICULOS_LABORATORIOS1" msdata:parent="LABORATORIOS" msdata:child="EquipoPrestado" msdata:parentkey="LABORATORIO_ID" msdata:childkey="ARTICULO_LABORATORIO_ID" msprop:Generator_UserChildTable="EquipoPrestado" msprop:Generator_ChildPropName="GetEquipoPrestadoRows" msprop:Generator_UserParentTable="LABORATORIOS" msprop:Generator_UserRelationName="FK_ARTICULOS_LABORATORIOS1" msprop:Generator_RelationVarName="relationFK_ARTICULOS_LABORATORIOS1" msprop:Generator_ParentPropName="LABORATORIOSRow" />
       <msdata:Relationship name="FK_ARTICULOS_MARCAS1" msdata:parent="MARCAS" msdata:child="EquipoPrestado" msdata:parentkey="MARCA_ID" msdata:childkey="ARTICULO_MARCA_ID" msprop:Generator_UserChildTable="EquipoPrestado" msprop:Generator_ChildPropName="GetEquipoPrestadoRows" msprop:Generator_UserParentTable="MARCAS" msprop:Generator_UserRelationName="FK_ARTICULOS_MARCAS1" msprop:Generator_RelationVarName="relationFK_ARTICULOS_MARCAS1" msprop:Generator_ParentPropName="MARCASRow" />
+      <msdata:Relationship name="FK_MANTENIMIENTOS_ARTICULOS2" msdata:parent="EquipoPrestadoReporte" msdata:child="MANTENIMIENTOS" msdata:parentkey="ARTICULO_ID" msdata:childkey="MANTENIMIENTO_ARTICULO_ID" msprop:Generator_UserChildTable="MANTENIMIENTOS" msprop:Generator_ChildPropName="GetMANTENIMIENTOSRows" msprop:Generator_ParentPropName="EquipoPrestadoReporteRow" msprop:Generator_UserRelationName="FK_MANTENIMIENTOS_ARTICULOS2" msprop:Generator_RelationVarName="relationFK_MANTENIMIENTOS_ARTICULOS2" msprop:Generator_UserParentTable="EquipoPrestadoReporte" />
+      <msdata:Relationship name="FK_CALIBRACIONES_ARTICULOS2" msdata:parent="EquipoPrestadoReporte" msdata:child="CALIBRACIONES" msdata:parentkey="ARTICULO_ID" msdata:childkey="CALIBRACION_ARTICULO_ID" msprop:Generator_UserChildTable="CALIBRACIONES" msprop:Generator_ChildPropName="GetCALIBRACIONESRows" msprop:Generator_ParentPropName="EquipoPrestadoReporteRow" msprop:Generator_UserRelationName="FK_CALIBRACIONES_ARTICULOS2" msprop:Generator_RelationVarName="relationFK_CALIBRACIONES_ARTICULOS2" msprop:Generator_UserParentTable="EquipoPrestadoReporte" />
+      <msdata:Relationship name="FK_ARTICULOS_LABORATORIOS2" msdata:parent="LABORATORIOS" msdata:child="EquipoPrestadoReporte" msdata:parentkey="LABORATORIO_ID" msdata:childkey="ARTICULO_LABORATORIO_ID" msprop:Generator_UserChildTable="EquipoPrestadoReporte" msprop:Generator_ChildPropName="GetEquipoPrestadoReporteRows" msprop:Generator_ParentPropName="LABORATORIOSRow" msprop:Generator_UserRelationName="FK_ARTICULOS_LABORATORIOS2" msprop:Generator_RelationVarName="relationFK_ARTICULOS_LABORATORIOS2" msprop:Generator_UserParentTable="LABORATORIOS" />
+      <msdata:Relationship name="FK_ARTICULOS_MARCAS2" msdata:parent="MARCAS" msdata:child="EquipoPrestadoReporte" msdata:parentkey="MARCA_ID" msdata:childkey="ARTICULO_MARCA_ID" msprop:Generator_UserChildTable="EquipoPrestadoReporte" msprop:Generator_ChildPropName="GetEquipoPrestadoReporteRows" msprop:Generator_ParentPropName="MARCASRow" msprop:Generator_UserRelationName="FK_ARTICULOS_MARCAS2" msprop:Generator_RelationVarName="relationFK_ARTICULOS_MARCAS2" msprop:Generator_UserParentTable="MARCAS" />
+      <msdata:Relationship name="FK_ALUMNOS_CARRERAS1" msdata:parent="CARRERAS" msdata:child="EquipoPrestadoDetalleReporte" msdata:parentkey="CARRERA_ID" msdata:childkey="ALUMNO_CARRERA_ID" msprop:Generator_UserChildTable="EquipoPrestadoDetalleReporte" msprop:Generator_ChildPropName="GetEquipoPrestadoDetalleReporteRows" msprop:Generator_UserParentTable="CARRERAS" msprop:Generator_UserRelationName="FK_ALUMNOS_CARRERAS1" msprop:Generator_RelationVarName="relationFK_ALUMNOS_CARRERAS1" msprop:Generator_ParentPropName="CARRERASRow" />
+      <msdata:Relationship name="FK_REVISIONXARTICULO_ARTICULOS" msdata:parent="ARTICULOS" msdata:child="REVISIONXARTICULO" msdata:parentkey="ARTICULO_ID" msdata:childkey="REVISION_ARTICULO_ID" msprop:Generator_UserChildTable="REVISIONXARTICULO" msprop:Generator_ChildPropName="GetREVISIONXARTICULORows" msprop:Generator_ParentPropName="ARTICULOSRow" msprop:Generator_UserRelationName="FK_REVISIONXARTICULO_ARTICULOS" msprop:Generator_RelationVarName="relationFK_REVISIONXARTICULO_ARTICULOS" msprop:Generator_UserParentTable="ARTICULOS" />
+      <msdata:Relationship name="FK_REVISIONXARTICULO_ARTICULOS1" msdata:parent="EquipoPrestado" msdata:child="REVISIONXARTICULO" msdata:parentkey="ARTICULO_ID" msdata:childkey="REVISION_ARTICULO_ID" msprop:Generator_UserChildTable="REVISIONXARTICULO" msprop:Generator_ChildPropName="GetREVISIONXARTICULORows" msprop:Generator_ParentPropName="EquipoPrestadoRow" msprop:Generator_UserRelationName="FK_REVISIONXARTICULO_ARTICULOS1" msprop:Generator_RelationVarName="relationFK_REVISIONXARTICULO_ARTICULOS1" msprop:Generator_UserParentTable="EquipoPrestado" />
+      <msdata:Relationship name="FK_REVISIONXARTICULO_REVISIONESTADO" msdata:parent="REVISIONESTADO" msdata:child="REVISIONXARTICULO" msdata:parentkey="REVISIONESTADO_ID" msdata:childkey="REVISION_ESTADOARTICULO_ID" msprop:Generator_UserChildTable="REVISIONXARTICULO" msprop:Generator_ChildPropName="GetREVISIONXARTICULORows" msprop:Generator_ParentPropName="REVISIONESTADORow" msprop:Generator_UserRelationName="FK_REVISIONXARTICULO_REVISIONESTADO" msprop:Generator_RelationVarName="relationFK_REVISIONXARTICULO_REVISIONESTADO" msprop:Generator_UserParentTable="REVISIONESTADO" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

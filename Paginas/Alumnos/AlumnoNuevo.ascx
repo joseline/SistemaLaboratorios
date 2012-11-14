@@ -136,6 +136,9 @@
                         <ext:ToolbarFill runat="server"/>
                         
                         <ext:Button runat="server" ID="btnNuevoAlumno" Text="Nuevo" Icon="Add">
+                            <Listeners>
+                                <Click Handler="this.up('form').getForm().reset();"/>
+                            </Listeners>
                         </ext:Button>
                         <ext:Button runat="server" ID="btnGuardarAlumnoNuevo" Text="Guardar" Icon="DiskBlack">
                         <DirectEvents>

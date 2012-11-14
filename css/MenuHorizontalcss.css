@@ -3,7 +3,7 @@
 #cssmenu a { margin: 0; padding: 0;}
 #cssmenu ul {list-style: none;}
 #cssmenu a {text-decoration: none;}
-#cssmenu {height: 50px; background-color: rgb(35,35,35); box-shadow: 0px 2px 3px rgba(0,0,0,.4);}
+#cssmenu {height: 40px; background-color: rgb(35,35,35); box-shadow: 0px 2px 3px rgba(0,0,0,.4);}
 
 
 #cssmenu > ul > li {

@@ -230,6 +230,9 @@
             </Items>
             <Buttons>
                 <ext:Button runat="server" ID="btnNuevo" Text="Nuevo" Icon="Add">
+                    <Listeners>
+                     <Click Handler="this.up('form').getForm().reset();"/>
+                    </Listeners>
                 </ext:Button>
                 <ext:Button runat="server" ID="btnGuardarArticuloNuevo" Text="Guardar" Icon="DiskBlack">
                     <DirectEvents>

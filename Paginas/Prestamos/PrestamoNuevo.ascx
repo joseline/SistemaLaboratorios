@@ -27,6 +27,14 @@
 </style>
 
 
+<script type="text/javascript">
+    var ValidarMostrarCheckValorMulta = function () {
+        if (App.ContentPlaceHolderBody_PrestamoNuevo1_dteFechaEntrada.SelectedDate > App.ContentPlaceHolderBody_PrestamoNuevo1_dtefechaEntregar.SelectedDate) {
+            App.ContentPlaceHolderBody_PrestamoNuevo1_chckMulta.Hidden = "false";
+        }
+    };
+</script>
+
 
 <ext:Store 
     ID="stPrestamoAlumnoNuevo" 
@@ -98,7 +106,6 @@
                 DefaultAnchor="100%"
                 BodyPadding="5" 
                 BodyStyle="background-color: #CCCCCC; background-image: url('../../img/grey.png'); background-repeat: repeat;">
-                 
                  <Items>
                     <ext:FieldContainer  
                         runat="server"
@@ -222,8 +229,8 @@
                                 ValueField="PRESTAMO_TIPO_ID" 
                                 DisplayField="PRESTAMO_TIPO_NOMBRE" 
                                 LabelAlign="Left" 
-                                OnDirectSelect ="activar">
-                            <Store>
+                                OnDirectSelect ="ActivarTipoPrestamo">
+                                <Store>
                                 <ext:Store runat="server">
                                     <Model>
                                         <ext:Model runat="server">
@@ -236,16 +243,7 @@
                                 </ext:Store>
                             </Store>
                            
-                        </ext:SelectBox>                  
-                        
-                        <ext:Checkbox 
-                            ID="chckMulta" 
-                            runat="server" 
-                            FieldLabel="Multa Pagada"  
-                            Checked="false" 
-                            Disabled="true" 
-                            Cls="LabelEstilo">
-                        </ext:Checkbox>
+                        </ext:SelectBox>                     
                         </Items>
                      </ext:FieldContainer>
                     <ext:FieldContainer  
@@ -326,7 +324,7 @@
                             </ext:FieldSet>
                         </Items>
                     </ext:FieldContainer>                
-                    <ext:Container 
+                    <ext:Container ID="fechas" 
                         runat="server"
                         AnchorHorizontal="100%"
                         Layout="HBoxLayout" 
@@ -355,9 +353,17 @@
                             LabelAlign="Left"
                             Icon="Date" 
                             Width="300" 
-                            Cls="LabelEstilo" 
-                            OnDirectSelect="mostrarMulta">
-                            
+                            Cls="LabelEstilo">
+                            <MessageBusDirectEvents>
+                                <ext:MessageBusDirectEvent>
+                                    <EventMask Msg="Espere..." ShowMask="true">
+                                    </EventMask>
+                                </ext:MessageBusDirectEvent>
+                            </MessageBusDirectEvents>
+                            <DirectEvents>
+                                <Select OnEvent="ValidarMostrarMulta">
+                                </Select>
+                            </DirectEvents>
                         </ext:DateField>
                         
                     </Items>
@@ -398,6 +404,30 @@
                             </ext:SelectBox>
                         </Items>
                     </ext:Container>
+                    <ext:Container 
+                        runat="server" 
+                        Layout="HBoxLayout" 
+                        Margin="20">
+                        <Items>
+                            <ext:Checkbox 
+                            ID="chckMulta" 
+                            runat="server" 
+                            FieldLabel="Multa Pagada"  
+                            Checked="false"  
+                            Cls="LabelEstilo" 
+                            Margins="0 60 0 0" 
+                            Hidden="true">
+                        </ext:Checkbox>
+                            <ext:TextField 
+                                ID="ValorMulta"  
+                                runat="server" 
+                                FieldLabel="Valor Multa" 
+                                Cls="LabelEstilo" 
+                                Hidden="true">
+                                
+                        </ext:TextField>
+                        </Items>
+                    </ext:Container>
                     <ext:FieldContainer 
                         runat="server"
                         AnchorHorizontal="100%"
@@ -416,7 +446,7 @@
                             </ext:TextArea>
                         </Items>
                     </ext:FieldContainer>
-                   
+                    
                  </Items>
                  <BottomBar>
                     <ext:Toolbar runat="server">
@@ -424,6 +454,9 @@
                             <ext:ToolbarFill runat="server" />
                             
                             <ext:Button runat="server" ID="btnPrestamoNuevo" Text="Nuevo" Icon="Add">
+                                 <Listeners>
+                                <Click Handler="this.up('form').getForm().reset();"/>
+                                </Listeners>
                             </ext:Button>
                     
                             <ext:Button runat="server" ID="btnGuardarPrestamoNuevo" Text="Guardar" Icon="DiskBlack">
